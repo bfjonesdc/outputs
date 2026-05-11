@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Char's Cookie Jar — Redesign Previews</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,800;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: linear-gradient(135deg, #fff8f0 0%, #f5ead7 100%);
+    color: #3d2817;
+    min-height: 100vh;
+    padding: 40px 20px;
+    line-height: 1.5;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .intro { text-align: center; margin-bottom: 48px; }
+  .eyebrow {
+    display: inline-block; background: #b3e066; color: #3d2817;
+    padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Fraunces', Georgia, serif; font-weight: 900;
+    font-size: clamp(36px, 6vw, 64px); line-height: 1.05;
+    letter-spacing: -0.02em; margin-bottom: 16px;
+  }
+  h1 em { font-style: italic; color: #ff5a7d; }
+  .intro p {
+    font-size: 17px; max-width: 580px; margin: 0 auto;
+    color: #5a3f29;
+  }
+  .grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+    margin-bottom: 48px;
+  }
+  .card {
+    background: white; border-radius: 24px; padding: 32px;
+    box-shadow: 0 12px 32px rgba(61, 40, 23, 0.1);
+    text-decoration: none; color: inherit;
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: flex; flex-direction: column;
+    border: 2px solid transparent;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(61, 40, 23, 0.18);
+  }
+  .card-v1 { border-color: #ff5a7d; }
+  .card-v2 { border-color: #d94b2b; }
+  .preview {
+    aspect-ratio: 16/10; border-radius: 14px; margin-bottom: 20px;
+    overflow: hidden; position: relative;
+  }
+  .preview-v1 {
+    background:
+      radial-gradient(circle at 70% 40%, #ffd166 0%, transparent 40%),
+      radial-gradient(circle at 30% 70%, #ff5a7d 0%, transparent 45%),
+      linear-gradient(135deg, #fff8f0, #fdecd2);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .preview-v1 .cookie {
+    width: 55%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #d9a25e 0%, #a8753a 60%, #6e4a22 100%);
+    box-shadow: inset -10px -10px 30px rgba(0,0,0,0.35), 0 12px 24px rgba(110, 74, 34, 0.3);
+    position: relative;
+  }
+  .preview-v1 .chip {
+    position: absolute; background: #2a1a0a; border-radius: 40% 60% 50% 50%;
+  }
+  .preview-v1 .chip.c1 { width: 16%; height: 14%; top: 25%; left: 30%; }
+  .preview-v1 .chip.c2 { width: 12%; height: 10%; top: 50%; left: 55%; }
+  .preview-v1 .chip.c3 { width: 14%; height: 12%; top: 60%; left: 25%; }
+  .preview-v1 .chip.c4 { width: 10%; height: 10%; top: 30%; left: 60%; }
+  .preview-v2 {
+    background:
+      repeating-linear-gradient(45deg, #d94b2b 0 12px, #f5ead7 12px 24px);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .preview-v2::before {
+    content: ""; position: absolute; inset: 18px;
+    background: #f5ead7; border-radius: 4px;
+  }
+  .preview-v2 .sign {
+    position: relative; z-index: 2;
+    background: #d94b2b; padding: 20px 32px;
+    border: 5px solid #2e1a0e;
+    box-shadow: 0 8px 0 #2e1a0e;
+    text-align: center;
+    color: #f5ead7;
+    transform: rotate(-2deg);
+  }
+  .preview-v2 .sign-name {
+    font-family: 'Fraunces', serif; font-weight: 900;
+    font-size: 32px; line-height: 1;
+    color: #e8b43e;
+    text-shadow: 2px 2px 0 #2e1a0e;
+  }
+  .preview-v2 .sign-sub {
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: 14px; letter-spacing: 0.15em;
+    margin-top: 6px; text-transform: uppercase;
+  }
+  .card-label {
+    display: inline-block; padding: 4px 12px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 10px;
+  }
+  .card-v1 .card-label { background: #ff5a7d; color: white; }
+  .card-v2 .card-label { background: #d94b2b; color: #f5ead7; }
+  .card h2 {
+    font-family: 'Fraunces', serif; font-weight: 800;
+    font-size: 28px; line-height: 1.1; margin-bottom: 10px;
+  }
+  .card .desc { font-size: 14px; color: #5a3f29; margin-bottom: 20px; flex-grow: 1; }
+  .card-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 600; font-size: 14px;
+  }
+  .card-v1 .card-cta { color: #ff5a7d; }
+  .card-v2 .card-cta { color: #d94b2b; }
+  .card-cta::after {
+    content: "→"; transition: transform 0.2s;
+  }
+  .card:hover .card-cta::after { transform: translateX(4px); }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    background: #fff8f0; padding: 4px 10px; border-radius: 6px;
+    font-size: 11px; color: #5a3f29; font-weight: 500;
+  }
+  .footer-note {
+    text-align: center; font-size: 13px; color: #5a3f29; opacity: 0.7;
+    padding-top: 32px; border-top: 1px solid rgba(61, 40, 23, 0.1);
+  }
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; }
+    body { padding: 24px 16px; }
+    .card { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="intro">
+      <span class="eyebrow">★ Design Previews for Char</span>
+      <h1>Two directions for <em>Char's Cookie Jar.</em></h1>
+      <p>Tap either preview below to explore the full design — homepage, shop, about, FAQ, and contact. Both can be built inside Squarespace.</p>
+    </div>
+
+    <div class="grid">
+      <a href="v1-modern-playful.html" class="card card-v1">
+        <div class="preview preview-v1">
+          <div class="cookie">
+            <span class="chip c1"></span>
+            <span class="chip c2"></span>
+            <span class="chip c3"></span>
+            <span class="chip c4"></span>
+          </div>
+        </div>
+        <span class="card-label">Version 1</span>
+        <h2>Modern &amp; Playful</h2>
+        <div class="tags">
+          <span class="tag">Coral pink</span>
+          <span class="tag">Buttery yellow</span>
+          <span class="tag">Bold serifs</span>
+          <span class="tag">DTC energy</span>
+        </div>
+        <p class="desc">Bright, contemporary, and full of personality. Big italicized headlines with a yellow highlight underline, a spinning cookie disc, a scrolling marquee, and modern hover-lift product cards.</p>
+        <span class="card-cta">Preview Version 1</span>
+      </a>
+
+      <a href="v2-retro-nostalgic.html" class="card card-v2">
+        <div class="preview preview-v2">
+          <div class="sign">
+            <div class="sign-name">CHAR'S</div>
+            <div class="sign-sub">Est. 2017</div>
+          </div>
+        </div>
+        <span class="card-label">Version 2</span>
+        <h2>Retro &amp; Nostalgic</h2>
+        <div class="tags">
+          <span class="tag">Vintage red</span>
+          <span class="tag">Mustard yellow</span>
+          <span class="tag">Chunky type</span>
+          <span class="tag">Bakery sign vibes</span>
+        </div>
+        <p class="desc">A 70s neighborhood bakery feel. Chunky slab headlines with hard drop-shadows, a diner-sign hero, polaroid photo stack, and a chalkboard "Today's Menu" featuring the bestsellers.</p>
+        <span class="card-cta">Preview Version 2</span>
+      </a>
+    </div>
+
+    <div class="footer-note">
+      Both versions include all 30 cookies, the Oprah quote, contact info, and FAQ.<br>
+      Click around — the filter chips, FAQ accordion, and nav all work.
+    </div>
+  </div>
+</body>
+</html>
