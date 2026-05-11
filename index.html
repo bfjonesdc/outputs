@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Char's Cookie Jar — Redesign Previews</title>
+<title>Aurathmic — Design Previews for Char's Cookie Jar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,800;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -11,8 +11,8 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Inter', system-ui, sans-serif;
-    background: linear-gradient(135deg, #fff8f0 0%, #f5ead7 100%);
-    color: #3d2817;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8edf8 100%);
+    color: #1a1f36;
     min-height: 100vh;
     padding: 40px 20px;
     line-height: 1.5;
@@ -20,7 +20,7 @@
   .container { max-width: 1100px; margin: 0 auto; }
   .intro { text-align: center; margin-bottom: 48px; }
   .eyebrow {
-    display: inline-block; background: #b3e066; color: #3d2817;
+    display: inline-block; background: #6c63ff; color: #ffffff;
     padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;
     margin-bottom: 20px;
   }
@@ -29,10 +29,10 @@
     font-size: clamp(36px, 6vw, 64px); line-height: 1.05;
     letter-spacing: -0.02em; margin-bottom: 16px;
   }
-  h1 em { font-style: italic; color: #ff5a7d; }
+  h1 em { font-style: italic; color: #6c63ff; }
   .intro p {
     font-size: 17px; max-width: 580px; margin: 0 auto;
-    color: #5a3f29;
+    color: #4a5068;
   }
   .grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
@@ -40,7 +40,7 @@
   }
   .card {
     background: white; border-radius: 24px; padding: 32px;
-    box-shadow: 0 12px 32px rgba(61, 40, 23, 0.1);
+    box-shadow: 0 12px 32px rgba(26, 31, 54, 0.1);
     text-decoration: none; color: inherit;
     transition: transform 0.25s, box-shadow 0.25s;
     display: flex; flex-direction: column;
@@ -48,7 +48,7 @@
   }
   .card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(61, 40, 23, 0.18);
+    box-shadow: 0 20px 40px rgba(26, 31, 54, 0.18);
   }
   .card-v1 { border-color: #ff5a7d; }
   .card-v2 { border-color: #d94b2b; }
@@ -117,7 +117,7 @@
     font-family: 'Fraunces', serif; font-weight: 800;
     font-size: 28px; line-height: 1.1; margin-bottom: 10px;
   }
-  .card .desc { font-size: 14px; color: #5a3f29; margin-bottom: 20px; flex-grow: 1; }
+  .card .desc { font-size: 14px; color: #4a5068; margin-bottom: 20px; flex-grow: 1; }
   .card-cta {
     display: inline-flex; align-items: center; gap: 8px;
     font-weight: 600; font-size: 14px;
@@ -130,12 +130,24 @@
   .card:hover .card-cta::after { transform: translateX(4px); }
   .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
   .tag {
-    background: #fff8f0; padding: 4px 10px; border-radius: 6px;
-    font-size: 11px; color: #5a3f29; font-weight: 500;
+    background: #eef0ff; padding: 4px 10px; border-radius: 6px;
+    font-size: 11px; color: #4a5068; font-weight: 500;
   }
   .footer-note {
-    text-align: center; font-size: 13px; color: #5a3f29; opacity: 0.7;
-    padding-top: 32px; border-top: 1px solid rgba(61, 40, 23, 0.1);
+    text-align: center; font-size: 13px; color: #4a5068; opacity: 0.7;
+    padding-top: 32px; border-top: 1px solid rgba(26, 31, 54, 0.1);
+  }
+  .aurathmic-logo {
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; margin-bottom: 40px;
+  }
+  .aurathmic-logo .wordmark {
+    font-family: 'Fraunces', serif; font-weight: 900;
+    font-size: 22px; letter-spacing: -0.02em; color: #1a1f36;
+  }
+  .aurathmic-logo .wordmark span { color: #6c63ff; }
+  .aurathmic-logo .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #6c63ff;
   }
   @media (max-width: 720px) {
     .grid { grid-template-columns: 1fr; }
@@ -146,8 +158,13 @@
 </head>
 <body>
   <div class="container">
+    <div class="aurathmic-logo">
+      <div class="dot"></div>
+      <div class="wordmark">Aurathmic<span>.</span></div>
+      <div class="dot"></div>
+    </div>
     <div class="intro">
-      <span class="eyebrow">★ Design Previews for Char</span>
+      <span class="eyebrow">★ Design Previews for Char's Cookie Jar</span>
       <h1>Two directions for <em>Char's Cookie Jar.</em></h1>
       <p>Tap either preview below to explore the full design — homepage, shop, about, FAQ, and contact. Both can be built inside Squarespace.</p>
     </div>
@@ -195,7 +212,7 @@
     </div>
 
     <div class="footer-note">
-      Both versions include all 30 cookies, the Oprah quote, contact info, and FAQ.<br>
+      Prepared by <strong>Aurathmic</strong> &mdash; both versions include all 30 cookies, the Oprah quote, contact info, and FAQ.<br>
       Click around — the filter chips, FAQ accordion, and nav all work.
     </div>
   </div>
