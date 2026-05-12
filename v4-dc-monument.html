@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Char's Cookie Jar — DC Monument</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --earth:    #0d0905;
+    --earth-2:  #1c1208;
+    --earth-3:  #2e1e0e;
+    --bronze:   #b5651d;
+    --copper:   #c4832a;
+    --brass:    #d4a050;
+    --brass-lt: #e8c880;
+    --ivory:    #f5ede0;
+    --ivory-dk: #e8d8c0;
+    --forest:   #2c4830;
+    --tan:      #c8aa80;
+    --body:     #3a2a18;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  /* Lattice pattern mixin — reused across sections */
+  .lattice {
+    background-image:
+      linear-gradient(45deg, rgba(181,101,29,0.18) 1px, transparent 1px),
+      linear-gradient(-45deg, rgba(181,101,29,0.18) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .lattice-lt {
+    background-image:
+      linear-gradient(45deg, rgba(181,101,29,0.07) 1px, transparent 1px),
+      linear-gradient(-45deg, rgba(181,101,29,0.07) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    background: var(--ivory);
+    color: var(--earth);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 { font-family: 'Cormorant Garamond', Georgia, serif; line-height: 1.05; }
+  a { color: inherit; text-decoration: none; }
+
+  /* BANNER */
+  .preview-banner {
+    background: var(--forest); color: var(--brass-lt);
+    padding: 10px; text-align: center;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* GEO RULE — West African textile-inspired divider */
+  .geo-rule {
+    height: 10px; position: relative; overflow: hidden;
+    background: var(--earth-2);
+  }
+  .geo-rule::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(45deg, var(--bronze) 25%, transparent 25%),
+      linear-gradient(135deg, var(--bronze) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--bronze) 75%),
+      linear-gradient(135deg, transparent 75%, var(--bronze) 75%);
+    background-size: 10px 10px;
+    background-position: 0 0, 5px 0, 5px -5px, 0 5px;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,9,5,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(181,101,29,0.3);
+  }
+  .nav-inner {
+    max-width: 1280px; margin: 0 auto; padding: 16px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700; font-size: 20px; letter-spacing: 0.08em;
+    color: var(--brass);
+    display: flex; flex-direction: column; line-height: 1.1;
+  }
+  .logo-sub {
+    font-size: 10px; font-weight: 300; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--tan); font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(245,237,224,0.55); transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--brass); }
+  .btn {
+    display: inline-block; padding: 11px 26px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .btn-bronze { background: var(--bronze); color: var(--ivory); }
+  .btn-bronze:hover { background: var(--copper); }
+  .btn-brass { background: var(--brass); color: var(--earth); }
+  .btn-brass:hover { background: var(--brass-lt); }
+  .btn-ghost { background: transparent; color: var(--brass); border: 1px solid rgba(212,160,80,0.5); }
+  .btn-ghost:hover { border-color: var(--brass); background: rgba(212,160,80,0.08); }
+  .btn-forest { background: var(--forest); color: var(--ivory); }
+  .btn-forest:hover { background: #3a5e40; }
+
+  /* HERO */
+  .hero {
+    background: var(--earth); position: relative; overflow: hidden;
+    padding: 0;
+  }
+  /* Lattice overlay */
+  .hero::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(45deg, rgba(181,101,29,0.12) 1px, transparent 1px),
+      linear-gradient(-45deg, rgba(181,101,29,0.12) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .hero-inner {
+    max-width: 1280px; margin: 0 auto; position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1.05fr 1fr; min-height: 640px;
+  }
+  .hero-monument {
+    padding: 80px 48px 80px 40px;
+    display: flex; flex-direction: column; justify-content: center;
+    border-right: 1px solid rgba(181,101,29,0.2);
+  }
+  .monument-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--copper); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .monument-label::after { content: ""; flex: 1; height: 1px; background: rgba(196,131,42,0.35); }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif; font-weight: 700;
+    font-size: clamp(52px, 8vw, 112px); line-height: 0.88;
+    color: var(--brass); letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+  .hero-name .sub-name {
+    display: block; font-weight: 300; font-style: italic;
+    font-size: clamp(28px, 4vw, 52px); color: rgba(245,237,224,0.75);
+    letter-spacing: 0.04em; line-height: 1.1;
+  }
+  .hero-rule {
+    display: flex; align-items: center; gap: 14px; margin: 28px 0;
+  }
+  .hero-rule::before, .hero-rule::after {
+    content: ""; height: 1px; background: rgba(212,160,80,0.4);
+  }
+  .hero-rule::before { width: 32px; }
+  .hero-rule::after { flex: 1; }
+  .hero-rule span {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.28em; text-transform: uppercase; color: var(--tan);
+  }
+  .hero-lede {
+    font-size: 17px; line-height: 1.75; color: rgba(245,237,224,0.7);
+    max-width: 440px; margin-bottom: 32px;
+    font-family: 'IBM Plex Sans', sans-serif; font-weight: 300;
+  }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* MONUMENT VISUAL (right column) */
+  .hero-visual {
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    padding: 0 0 0 0; position: relative;
+  }
+  /* Three rising tiers — NMAAHC silhouette in pure CSS */
+  .tiers {
+    width: 100%; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; padding-bottom: 0; height: 100%;
+    position: relative;
+  }
+  .tier {
+    width: 100%; position: relative; overflow: hidden;
+  }
+  .tier-3 { height: 200px; background: #1a0f06; }
+  .tier-2 { height: 180px; background: #150c05; width: 88%; }
+  .tier-1 { height: 260px; background: #0d0905; width: 74%; flex-shrink: 0; }
+  .tier::after {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(45deg, rgba(181,101,29,0.22) 1px, transparent 1px),
+      linear-gradient(-45deg, rgba(181,101,29,0.22) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+  .tier-1::after { opacity: 0.9; }
+  .tier-2::after { opacity: 0.7; }
+  .tier-3::after { opacity: 0.5; }
+  .tier-1 .tier-label {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: var(--brass);
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .tier-label-name { font-size: 48px; font-weight: 700; letter-spacing: 0.1em; line-height: 1; }
+  .tier-label-sub  { font-size: 13px; font-weight: 300; letter-spacing: 0.35em; text-transform: uppercase; margin-top: 6px; color: var(--tan); font-family: 'IBM Plex Sans', sans-serif; }
+  .tier-2 .tier-inner, .tier-3 .tier-inner {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tier-ornament {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(212,160,80,0.55); font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .hero-stats-bar {
+    display: flex; width: 100%; border-top: 1px solid rgba(181,101,29,0.3);
+    background: rgba(13,9,5,0.8); position: relative; z-index: 3;
+  }
+  .hero-stat {
+    flex: 1; padding: 18px 20px; text-align: center;
+    border-right: 1px solid rgba(181,101,29,0.2);
+  }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat strong {
+    display: block; font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 700; color: var(--brass); line-height: 1;
+  }
+  .hero-stat span { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--tan); }
+
+  /* GEO BORDER STRIP */
+  .kente-strip {
+    height: 16px; position: relative; overflow: hidden;
+    background: var(--earth-2);
+  }
+  .kente-strip::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--bronze)    0 8px,
+      var(--forest)    8px 16px,
+      var(--brass)     16px 24px,
+      var(--earth-2)   24px 32px,
+      var(--bronze)    32px 40px,
+      var(--forest)    40px 48px,
+      var(--brass)     48px 56px,
+      var(--earth-2)   56px 64px
+    );
+    opacity: 0.7;
+  }
+
+  /* SECTIONS */
+  section { padding: 80px 40px; }
+  .container { max-width: 1280px; margin: 0 auto; }
+  .section-head { text-align: center; margin-bottom: 56px; }
+  .section-head .kicker {
+    display: block; font-size: 10px; font-weight: 600; font-family: 'IBM Plex Sans', sans-serif;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--copper); margin-bottom: 12px;
+  }
+  .section-head h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 64px); font-weight: 700; color: var(--earth);
+  }
+  .section-head p { font-size: 17px; color: var(--body); max-width: 520px; margin: 14px auto 0; font-weight: 300; }
+
+  /* FEATURED */
+  .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--ivory-dk); }
+  .feature-card {
+    background: var(--ivory); padding: 40px 32px; position: relative;
+    transition: background 0.25s; overflow: hidden;
+  }
+  .feature-card:hover { background: #efe3d0; }
+  .feature-card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--bronze);
+  }
+  .feature-card:nth-child(2)::before { background: var(--copper); }
+  .feature-card:nth-child(3)::before { background: var(--forest); }
+  .feature-num {
+    position: absolute; top: 20px; right: 24px;
+    font-family: 'Cormorant Garamond', serif; font-size: 80px; font-weight: 700;
+    color: rgba(181,101,29,0.08); line-height: 1;
+  }
+  .feature-img {
+    width: 80px; height: 80px; margin-bottom: 22px;
+    background: radial-gradient(circle at 35% 35%, #d9a25e, #6e4a22);
+  }
+  .feature-img.oreo { background: radial-gradient(circle at 35% 35%, #6b4423, #2a1810); }
+  .feature-img.pb   { background: radial-gradient(circle at 35% 35%, #e8a85c, #8a5a28); }
+  .feature-label {
+    display: inline-block; font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--copper); margin-bottom: 10px;
+    padding-bottom: 8px; border-bottom: 1px solid rgba(181,101,29,0.25); width: 100%;
+  }
+  .feature-card h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700;
+    color: var(--earth); margin-bottom: 8px;
+  }
+  .feature-card p { font-size: 14px; color: var(--body); line-height: 1.7; margin-bottom: 16px; font-weight: 300; }
+  .feature-price {
+    font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--bronze);
+  }
+
+  /* ROOTS BAND */
+  .roots-band { background: var(--earth-2); color: var(--ivory); padding: 80px 40px; position: relative; }
+  .roots-band .lattice-overlay {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(45deg, rgba(181,101,29,0.1) 1px, transparent 1px),
+      linear-gradient(-45deg, rgba(181,101,29,0.1) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .roots-inner {
+    max-width: 1280px; margin: 0 auto; position: relative;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .roots-inner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5.5vw, 68px); font-weight: 700; line-height: 1.05; margin-bottom: 20px;
+  }
+  .roots-inner h2 em { font-style: italic; color: var(--brass); }
+  .roots-inner p { font-size: 16px; line-height: 1.8; color: rgba(245,237,224,0.75); margin-bottom: 14px; font-weight: 300; }
+  .roots-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(181,101,29,0.2); }
+  .roots-pillar {
+    background: var(--earth-3); padding: 28px 24px;
+    transition: background 0.2s;
+  }
+  .roots-pillar:hover { background: #3a2818; }
+  .roots-pillar h4 {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 9px; font-weight: 600;
+    letter-spacing: 0.25em; text-transform: uppercase; color: var(--brass); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .roots-pillar h4::before { content: "◆"; font-size: 7px; }
+  .roots-pillar p { font-size: 13px; color: rgba(245,237,224,0.65); line-height: 1.65; font-weight: 300; }
+
+  /* SHOP */
+  .shop-section { background: var(--ivory); }
+  .shop-section.lattice-lt {
+    background-image:
+      linear-gradient(45deg, rgba(181,101,29,0.05) 1px, transparent 1px),
+      linear-gradient(-45deg, rgba(181,101,29,0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .shop-filters {
+    display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px;
+  }
+  .filter-chip {
+    background: transparent; color: var(--earth);
+    border: 1px solid rgba(13,9,5,0.2);
+    padding: 8px 22px; font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-chip:hover, .filter-chip.active {
+    background: var(--earth); color: var(--brass); border-color: var(--earth);
+  }
+  .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--ivory-dk); }
+  .product-card {
+    background: white; padding: 22px; cursor: pointer; position: relative;
+    transition: background 0.2s; border-top: 3px solid transparent;
+  }
+  .product-card:hover { background: #f8f0e4; border-top-color: var(--bronze); }
+  .product-img {
+    width: 100%; aspect-ratio: 1; margin-bottom: 14px;
+    background: radial-gradient(circle at 35% 35%, #d9a25e, #6e4a22);
+  }
+  .product-img.choc   { background: radial-gradient(circle at 35% 35%, #c08a4d, #5a3a18); }
+  .product-img.vegan  { background: radial-gradient(circle at 35% 35%, #c8a373, #6e4a22); outline: 2px solid var(--forest); }
+  .product-img.season { background: radial-gradient(circle at 35% 35%, #e8a85c, #a85a28); }
+  .product-img.special{ background: radial-gradient(circle at 35% 35%, var(--brass), var(--earth-2)); }
+  .product-card h4 {
+    font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 700;
+    color: var(--earth); margin-bottom: 4px; line-height: 1.25;
+  }
+  .product-price { font-size: 13px; font-weight: 500; color: var(--bronze); letter-spacing: 0.02em; }
+  .prod-tag {
+    position: absolute; top: 14px; right: 14px;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 8px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 7px;
+    background: var(--earth); color: var(--brass);
+  }
+  .prod-tag.vt { background: var(--forest); color: var(--ivory); }
+  .prod-tag.bt { background: var(--bronze); color: var(--ivory); }
+
+  /* MEET CHAR */
+  .meet-section { background: var(--earth); color: var(--ivory); padding: 80px 40px; position: relative; }
+  .meet-section::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(45deg, rgba(181,101,29,0.08) 1px, transparent 1px),
+      linear-gradient(-45deg, rgba(181,101,29,0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .meet { max-width: 1280px; margin: 0 auto; position: relative; display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center; }
+  .portrait {
+    aspect-ratio: 4/5; position: relative;
+    background: linear-gradient(160deg, #2e1e0e 0%, #0d0905 100%);
+  }
+  .portrait::before {
+    content: ""; position: absolute; inset: 20px;
+    border: 1px solid rgba(212,160,80,0.3); pointer-events: none;
+  }
+  .portrait::after {
+    content: "";
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(45deg, rgba(181,101,29,0.14) 1px, transparent 1px),
+      linear-gradient(-45deg, rgba(181,101,29,0.14) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+  .portrait-caption {
+    position: absolute; bottom: -16px; right: -16px; z-index: 2;
+    background: var(--bronze); padding: 14px 20px;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 9px; font-weight: 600;
+    letter-spacing: 0.25em; text-transform: uppercase; color: var(--ivory);
+  }
+  .meet-copy .kicker {
+    display: block; font-size: 10px; font-weight: 600; font-family: 'IBM Plex Sans', sans-serif;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--copper); margin-bottom: 12px;
+  }
+  .meet-copy h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4.5vw, 62px); font-weight: 700; color: var(--brass); margin-bottom: 8px;
+  }
+  .meet-copy h2 em { font-style: italic; color: var(--ivory); }
+  .meet-copy p { font-size: 16px; line-height: 1.8; color: rgba(245,237,224,0.75); margin-bottom: 14px; font-weight: 300; }
+  .quote-block {
+    padding: 22px 24px; margin: 24px 0;
+    border-left: 3px solid var(--bronze);
+    background: rgba(181,101,29,0.08);
+  }
+  .quote-block blockquote {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 20px; color: var(--brass-lt); line-height: 1.5; margin-bottom: 8px;
+  }
+  .quote-block cite { font-family: 'IBM Plex Sans', sans-serif; font-size: 11px; color: var(--tan); letter-spacing: 0.08em; }
+
+  /* FAQ */
+  .faq-section { background: var(--ivory); }
+  .faq-section.lattice-lt { background-image: linear-gradient(45deg, rgba(181,101,29,0.05) 1px, transparent 1px), linear-gradient(-45deg, rgba(181,101,29,0.05) 1px, transparent 1px); background-size: 22px 22px; }
+  .faq-grid { max-width: 780px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid rgba(13,9,5,0.12); }
+  .faq-q {
+    padding: 20px 0; cursor: pointer;
+    font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 700;
+    color: var(--earth); display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .faq-q::after { content: "+"; font-size: 22px; color: var(--bronze); transition: transform 0.2s; flex-shrink: 0; font-family: 'IBM Plex Sans', sans-serif; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s; color: var(--body); font-size: 15px; line-height: 1.75; font-weight: 300; }
+  .faq-item.open .faq-a { max-height: 200px; padding-bottom: 20px; }
+
+  /* CONTACT */
+  .contact-section { background: var(--forest); color: var(--ivory); padding: 80px 40px; position: relative; overflow: hidden; }
+  .contact-section::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(45deg, rgba(212,160,80,0.07) 1px, transparent 1px), linear-gradient(-45deg, rgba(212,160,80,0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .contact-grid { max-width: 1280px; margin: 0 auto; position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .contact-grid .kicker {
+    display: block; font-size: 10px; font-weight: 600; font-family: 'IBM Plex Sans', sans-serif;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--brass-lt); margin-bottom: 12px;
+  }
+  .contact-grid h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(34px, 4vw, 52px); font-weight: 700; line-height: 1.1; margin-bottom: 14px;
+  }
+  .contact-grid .lede { font-size: 16px; color: rgba(245,237,224,0.82); margin-bottom: 28px; font-weight: 300; }
+  .contact-info { display: flex; flex-direction: column; gap: 14px; }
+  .contact-info-item { display: flex; align-items: center; gap: 14px; font-size: 15px; }
+  .c-icon {
+    width: 40px; height: 40px; background: rgba(212,160,80,0.12);
+    border: 1px solid rgba(212,160,80,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; color: var(--brass); flex-shrink: 0;
+  }
+  .contact-form {
+    background: var(--earth); padding: 32px;
+    border: 1px solid rgba(212,160,80,0.2);
+  }
+  .contact-form h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700;
+    color: var(--brass); margin-bottom: 20px;
+  }
+  .form-group { margin-bottom: 14px; }
+  .form-group label {
+    display: block; font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 9px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--copper); margin-bottom: 6px;
+  }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: 11px 13px;
+    background: rgba(212,160,80,0.05); border: 1px solid rgba(212,160,80,0.2);
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--ivory); font-weight: 300;
+  }
+  .form-group textarea { min-height: 96px; resize: vertical; }
+
+  /* FOOTER */
+  footer { background: var(--earth); color: var(--ivory); padding: 60px 40px 28px; border-top: 1px solid rgba(181,101,29,0.25); }
+  .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 52px; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 22px; color: var(--brass); display: block; margin-bottom: 10px; }
+  .footer-logo em { font-style: italic; font-weight: 300; }
+  .footer-brand p { font-size: 13px; color: rgba(245,237,224,0.5); max-width: 270px; line-height: 1.7; font-weight: 300; }
+  footer h4 { font-family: 'IBM Plex Sans', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--brass); margin-bottom: 14px; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 9px; font-size: 13px; color: rgba(245,237,224,0.6); font-weight: 300; }
+  footer ul li a:hover { color: var(--brass); }
+  .footer-bottom { border-top: 1px solid rgba(181,101,29,0.15); margin-top: 44px; padding-top: 22px; font-size: 11px; color: rgba(245,237,224,0.3); text-align: center; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-inner, .roots-inner, .meet, .contact-grid, .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+    .featured-grid { grid-template-columns: 1fr 1fr; }
+    .product-grid { grid-template-columns: 1fr 1fr; }
+    .roots-pillars { grid-template-columns: 1fr 1fr; }
+    .hero-monument { padding: 56px 28px; }
+    .hero-visual { display: none; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    section { padding: 56px 20px; }
+    .roots-band, .meet-section, .contact-section { padding: 56px 20px; }
+  }
+  @media (max-width: 520px) {
+    .product-grid, .featured-grid { grid-template-columns: 1fr 1fr; gap: 1px; }
+    .roots-pillars { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="preview-banner">
+    Design Preview — Version 4: DC Monument &nbsp;·&nbsp; Char's Cookie Jar redesign &nbsp;·&nbsp; by Aurathmic
+  </div>
+  <div class="kente-strip"></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#home" class="logo">
+        Char's Cookie Jar
+        <span class="logo-sub">Washington, D.C. · Est. 2017</span>
+      </a>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#meet">Meet Char</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="#shop" class="btn btn-brass">Order Now</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-monument">
+        <div class="monument-label">Washington, D.C.</div>
+        <div class="hero-name">
+          Char's
+          <span class="sub-name">Cookie Jar</span>
+        </div>
+        <div class="hero-rule"><span>Est. 2017</span></div>
+        <p class="hero-lede">Small-batch gourmet cookies baked with the spirit of D.C. — wholesome ingredients, bold flavors, and deep roots. Shipped to your door, with love.</p>
+        <div class="hero-ctas">
+          <a href="#shop" class="btn btn-brass">Shop the Jar →</a>
+          <a href="#meet" class="btn btn-ghost">Meet Char</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="tiers">
+          <div class="tier tier-1">
+            <div class="tier-label">
+              <div class="tier-label-name">CHAR'S</div>
+              <div class="tier-label-sub">Not Your Average Cookie</div>
+            </div>
+          </div>
+          <div class="tier tier-2">
+            <div class="tier-inner"><div class="tier-ornament">◆ &nbsp; Cookie Jar &nbsp; ◆</div></div>
+          </div>
+          <div class="tier tier-3">
+            <div class="tier-inner"><div class="tier-ornament">Washington, D.C.</div></div>
+          </div>
+        </div>
+        <div class="hero-stats-bar">
+          <div class="hero-stat"><strong>30+</strong><span>Flavors</span></div>
+          <div class="hero-stat"><strong>48hr</strong><span>Turnaround</span></div>
+          <div class="hero-stat"><strong>2017</strong><span>Founded</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="kente-strip"></div>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">The Signatures</span>
+        <h2>Crowd Favorites.</h2>
+        <p>Bestsellers that started a cult following — and a few flavors only Char would dare to combine.</p>
+      </div>
+      <div class="featured-grid">
+        <div class="feature-card">
+          <div class="feature-num">I</div>
+          <div class="feature-img"></div>
+          <div class="feature-label">Bestseller</div>
+          <h3>The Monster</h3>
+          <p>Loaded with everything good. Our signature stacked cookie that lives up to its name.</p>
+          <div class="feature-price">from $32</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">II</div>
+          <div class="feature-img oreo"></div>
+          <div class="feature-label">Iconic</div>
+          <h3>Chocolate Chip &amp; Oreo</h3>
+          <p>The combo that put Char's on the map. Crispy edges, gooey center, Oreo chunks.</p>
+          <div class="feature-price">from $30</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">III</div>
+          <div class="feature-img pb"></div>
+          <div class="feature-label">Fan Favorite</div>
+          <h3>Real Reese's PB Cup</h3>
+          <p>Yes, REAL Reese's cups baked right in. The cookie that explains itself.</p>
+          <div class="feature-price">from $30</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="roots-band">
+    <div class="lattice-overlay"></div>
+    <div class="roots-inner">
+      <div>
+        <div class="monument-label" style="color:var(--copper);margin-bottom:20px;">Our Promise</div>
+        <h2>Rooted in <em>quality.</em></h2>
+        <p>Every batch begins with the same commitment — real ingredients, real care, real taste. Nothing artificial, nothing rushed. Baked to order, packed with intention, shipped from Washington, D.C.</p>
+        <a href="#shop" class="btn btn-brass" style="margin-top:24px;">Shop Now →</a>
+      </div>
+      <div class="roots-pillars">
+        <div class="roots-pillar">
+          <h4>Small Batch</h4>
+          <p>Hand-mixed, hand-scooped, hand-packed. No factory shortcuts, ever.</p>
+        </div>
+        <div class="roots-pillar">
+          <h4>Real Ingredients</h4>
+          <p>Real butter, real chocolate. Names you can read on every label.</p>
+        </div>
+        <div class="roots-pillar">
+          <h4>Baked to Order</h4>
+          <p>48–72 hour turnaround. Nothing sits on a shelf waiting for you.</p>
+        </div>
+        <div class="roots-pillar">
+          <h4>Vegan Options</h4>
+          <p>Three plant-based flavors and growing. Same crave-worthy taste.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kente-strip"></div>
+
+  <section class="shop-section lattice-lt" id="shop">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">The Collection</span>
+        <h2>Shop the Jar.</h2>
+        <p>Thirty flavors and counting. Pick your obsession.</p>
+      </div>
+      <div class="shop-filters">
+        <button class="filter-chip active" data-cat="all">All</button>
+        <button class="filter-chip" data-cat="classic">Classics</button>
+        <button class="filter-chip" data-cat="signature">Signature</button>
+        <button class="filter-chip" data-cat="vegan">Vegan</button>
+        <button class="filter-chip" data-cat="seasonal">Seasonal</button>
+        <button class="filter-chip" data-cat="specialty">Specialty</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </div>
+  </section>
+
+  <div class="kente-strip"></div>
+
+  <section class="meet-section" id="meet">
+    <div class="meet">
+      <div style="position:relative;">
+        <div class="portrait"></div>
+        <div class="portrait-caption">Est. 2017 · Washington D.C.</div>
+      </div>
+      <div class="meet-copy">
+        <span class="kicker">The Baker</span>
+        <h2>Meet <em>Char.</em></h2>
+        <p>A Long Beach native turned D.C. resident, Char is the bakerista behind the jar. She's as daring in the kitchen as she is in life — pairing chocolate chips with Oreos before it was cool, and slipping real Reese's cups into cookies because, well, why not?</p>
+        <p>Char's cookies are baked, packed, and shipped with love. Carefully crafted recipes, wholesome ingredients, homemade taste. The perfect gift for co-workers, friends, family — or a delicious treat to keep all to yourself.</p>
+        <div class="quote-block">
+          <blockquote>"Be sure to savor every bite."</blockquote>
+          <cite>— Oprah Winfrey</cite>
+        </div>
+        <a href="#shop" class="btn btn-brass">See What She's Baking →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="kente-strip"></div>
+
+  <section class="faq-section lattice-lt" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Good to Know</span>
+        <h2>Frequently Asked.</h2>
+        <p>Everything you want to know before placing your order.</p>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-q">How long do orders take to fulfill?</div>
+          <div class="faq-a">All orders take 48 to 72 hours to be baked and packed. We bake fresh — nothing sits on a shelf.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you ship nationwide?</div>
+          <div class="faq-a">Yes. We ship across the U.S. Local D.C.-area pickup is also available — just choose pickup at checkout.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you have vegan options?</div>
+          <div class="faq-a">We do. Currently three vegan flavors: Chocolate Chip, Chocolate Chip and Oreo, and Chocolate Chip with Nuts. Same crave-worthy taste, plant-based.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I order custom or special-occasion cookies?</div>
+          <div class="faq-a">Absolutely. Reach out via the contact form or email charcookiejar@gmail.com to discuss your event, wedding, or corporate order.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What are common allergens?</div>
+          <div class="faq-a">Our kitchen handles wheat, dairy, eggs, nuts, peanuts, and soy. We can't guarantee an allergen-free environment, so please order with care.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="kente-strip"></div>
+
+  <section class="contact-section" id="contact">
+    <div class="contact-grid">
+      <div>
+        <span class="kicker">Get in Touch</span>
+        <h2>Let's Talk Cookies.</h2>
+        <p class="lede">Special orders, pop-up bookings, press, or just want to say hi — we'd love to hear from you.</p>
+        <div class="contact-info">
+          <div class="contact-info-item"><span class="c-icon">☎</span>(202) 744-5439</div>
+          <div class="contact-info-item"><span class="c-icon">✉</span>charcookiejar@gmail.com</div>
+          <div class="contact-info-item"><span class="c-icon">⌂</span>Washington, D.C.</div>
+          <div class="contact-info-item"><span class="c-icon">f</span>Facebook</div>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Form is a preview — Squarespace will handle real submissions.');">
+        <h3>Send a Message.</h3>
+        <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" /></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com" /></div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your order, event, or question..."></textarea></div>
+        <button type="submit" class="btn btn-brass" style="width:100%;">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">Char's <em>Cookie Jar</em></span>
+        <p>Not your average cookie. Baked, packed, and shipped with love from Washington, D.C.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#shop">All Cookies</a></li>
+          <li><a href="#shop">Vegan</a></li>
+          <li><a href="#shop">Gift Baskets</a></li>
+          <li><a href="#shop">Special Orders</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>About</h4>
+        <ul>
+          <li><a href="#meet">Meet Char</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the Jar</h4>
+        <ul><li style="opacity:0.55;">Pop-up alerts &amp; new flavors</li></ul>
+        <input type="email" placeholder="Your email" style="width:100%;padding:10px 13px;background:rgba(212,160,80,0.06);border:1px solid rgba(212,160,80,0.2);color:var(--ivory);margin-top:8px;font-family:inherit;font-size:13px;" />
+        <button class="btn btn-brass" style="margin-top:8px;width:100%;">Subscribe</button>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Char's Cookie Jar &nbsp;·&nbsp; Washington, D.C. &nbsp;·&nbsp; Made with ♥</div>
+  </footer>
+
+<script>
+  const products = [
+    { name: "Chocolate Chip", price: "from $25", cat: "classic", cls: "choc" },
+    { name: "Salted Caramel Chocolate Chip", price: "from $25", cat: "classic", cls: "choc" },
+    { name: "Chocolate Chip and Oreo", price: "from $30", cat: "classic", cls: "choc", tag: "Iconic", tagCls: "bt" },
+    { name: "Oatmeal Raisin", price: "from $30", cat: "classic" },
+    { name: "M&M", price: "$27", cat: "classic" },
+    { name: "Snickerdoodle", price: "from $25", cat: "classic" },
+    { name: "White Chocolate Macadamia Nut", price: "from $30", cat: "classic" },
+    { name: "Charlee", price: "from $27", cat: "classic" },
+    { name: "Chocolate Chip w/ Nuts", price: "from $25", cat: "classic" },
+    { name: "The Monster", price: "from $32", cat: "signature", cls: "special", tag: "Bestseller", tagCls: "bt" },
+    { name: "Goddess", price: "from $32", cat: "signature", cls: "special" },
+    { name: "Real Reese's Peanut Butter Cup", price: "from $30", cat: "signature", cls: "special" },
+    { name: "S'mores", price: "from $30", cat: "signature" },
+    { name: "The Real Turtle", price: "from $30", cat: "signature" },
+    { name: "Brown Butter Choc Chip w/ Toffee", price: "from $30", cat: "signature" },
+    { name: "Butter My Scotch", price: "from $30", cat: "signature" },
+    { name: "Nirvana", price: "$30", cat: "signature" },
+    { name: "Twisted!", price: "$30", cat: "signature" },
+    { name: "Supernova", price: "$30", cat: "signature" },
+    { name: "Velvet", price: "from $27", cat: "signature" },
+    { name: "(VEGAN) Chocolate Chip", price: "from $25", cat: "vegan", cls: "vegan", tag: "Vegan", tagCls: "vt" },
+    { name: "(VEGAN) Chocolate Chip and Oreo", price: "from $25", cat: "vegan", cls: "vegan", tag: "Vegan", tagCls: "vt" },
+    { name: "(VEGAN) Chocolate Chip w/ Nuts", price: "from $25", cat: "vegan", cls: "vegan", tag: "Vegan", tagCls: "vt" },
+    { name: "White Christmas", price: "from $30", cat: "seasonal", cls: "season", tag: "Seasonal" },
+    { name: "P.S. I Love You (Pumpkin Spice)", price: "from $30", cat: "seasonal", cls: "season", tag: "Seasonal" },
+    { name: "Slap Your Nana Puddin'", price: "$60", cat: "specialty", cls: "special", tag: "Specialty", tagCls: "bt" },
+    { name: "Peach Cobbler Pound Cake", price: "$45", cat: "specialty", cls: "special" },
+    { name: "Cookie Gift Baskets", price: "$50", cat: "specialty", cls: "special", tag: "Gift" },
+    { name: "Merry Mystery Cookie Box", price: "$25.12", cat: "specialty", cls: "special", tag: "Mystery" },
+    { name: "Frozen Cookie Dough", price: "$20", cat: "specialty" }
+  ];
+
+  function renderProducts(cat) {
+    const grid = document.getElementById('productGrid');
+    const list = cat === 'all' ? products : products.filter(p => p.cat === cat);
+    grid.innerHTML = list.map(p => {
+      const imgClass = p.cls ? `product-img ${p.cls}` : 'product-img';
+      const tagHtml = p.tag ? `<div class="prod-tag ${p.tagCls||''}">${p.tag}</div>` : '';
+      return `<div class="product-card">${tagHtml}<div class="${imgClass}"></div><h4>${p.name}</h4><div class="product-price">${p.price}</div></div>`;
+    }).join('');
+  }
+
+  renderProducts('all');
+
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      renderProducts(chip.dataset.cat);
+    });
+  });
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => item.classList.toggle('open'));
+  });
+</script>
+</body>
+</html>

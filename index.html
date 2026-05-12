@@ -38,6 +38,49 @@
     display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
     margin-bottom: 48px;
   }
+  .card-v3 { border-color: #c8a44a; }
+  .card-v4 { border-color: #b5651d; }
+  .card-v3 .card-label { background: #c8a44a; color: #0e0b1c; }
+  .card-v4 .card-label { background: #b5651d; color: #f5ede0; }
+  .card-v3 .card-cta { color: #c8a44a; }
+  .card-v4 .card-cta { color: #b5651d; }
+  /* V3 preview — Jazz Age / marquee */
+  .preview-v3 {
+    background: #0e0b1c;
+    display: flex; align-items: center; justify-content: center; position: relative;
+    overflow: hidden;
+  }
+  .preview-v3::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(45deg,rgba(200,164,74,0.12) 1px,transparent 1px),linear-gradient(-45deg,rgba(200,164,74,0.12) 1px,transparent 1px);
+    background-size: 16px 16px;
+  }
+  .preview-v3 .marquee-box {
+    position: relative; z-index: 1; border: 1px solid rgba(200,164,74,0.45);
+    padding: 16px 24px; text-align: center;
+  }
+  .preview-v3 .mq-name { font-family:'Fraunces',serif; font-weight:900; font-size:32px; color:#c8a44a; line-height:1; }
+  .preview-v3 .mq-sub  { font-size:10px; letter-spacing:0.25em; color:rgba(245,237,224,0.6); margin-top:6px; text-transform:uppercase; font-weight:600; }
+  /* V4 preview — monument tiers */
+  .preview-v4 {
+    background: #0d0905; position: relative; overflow: hidden;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .preview-v4::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(45deg,rgba(181,101,29,0.18) 1px,transparent 1px),linear-gradient(-45deg,rgba(181,101,29,0.18) 1px,transparent 1px);
+    background-size: 14px 14px;
+  }
+  .tiers-mini {
+    position: relative; z-index: 1; width: 80%;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .tm { overflow:hidden; position:relative; }
+  .tm::after { content:""; position:absolute; inset:0; background-image:linear-gradient(45deg,rgba(181,101,29,0.3) 1px,transparent 1px),linear-gradient(-45deg,rgba(181,101,29,0.3) 1px,transparent 1px); background-size:10px 10px; }
+  .tm-1 { width:60%; height:60px; background:#0d0905; display:flex;align-items:center;justify-content:center; }
+  .tm-2 { width:78%; height:44px; background:#150d08; }
+  .tm-3 { width:100%;height:34px; background:#1c1208; }
+  .tm-name { position:relative;z-index:1; font-family:'Fraunces',serif; font-weight:900; font-size:18px; color:#d4a050; letter-spacing:0.1em; }
   .card {
     background: white; border-radius: 24px; padding: 32px;
     box-shadow: 0 12px 32px rgba(26, 31, 54, 0.1);
@@ -165,8 +208,8 @@
     </div>
     <div class="intro">
       <span class="eyebrow">★ Design Previews for Char's Cookie Jar</span>
-      <h1>Two directions for <em>Char's Cookie Jar.</em></h1>
-      <p>Tap either preview below to explore the full design — homepage, shop, about, FAQ, and contact. Both can be built inside Squarespace.</p>
+      <h1>Four directions for <em>Char's Cookie Jar.</em></h1>
+      <p>Tap any preview below to explore the full design — homepage, shop, about, FAQ, and contact. All four can be built inside Squarespace.</p>
     </div>
 
     <div class="grid">
@@ -208,6 +251,45 @@
         </div>
         <p class="desc">A 70s neighborhood bakery feel. Chunky slab headlines with hard drop-shadows, a diner-sign hero, polaroid photo stack, and a chalkboard "Today's Menu" featuring the bestsellers.</p>
         <span class="card-cta">Preview Version 2</span>
+      </a>
+
+      <a href="v3-u-street-heritage.html" class="card card-v3">
+        <div class="preview preview-v3">
+          <div class="marquee-box">
+            <div class="mq-name">CHAR'S</div>
+            <div class="mq-sub">★ U Street Heritage ★</div>
+          </div>
+        </div>
+        <span class="card-label">Version 3</span>
+        <h2>U Street Heritage</h2>
+        <div class="tags">
+          <span class="tag">Midnight &amp; gold</span>
+          <span class="tag">Jazz Age</span>
+          <span class="tag">Black Broadway</span>
+          <span class="tag">Theater marquee</span>
+        </div>
+        <p class="desc">Rooted in D.C.'s historic U Street corridor — the Black Broadway. Deep midnight backgrounds, warm gold accents, Art Deco borders, and Playfair Display type that feels like a jazz-era concert bill come to life.</p>
+        <span class="card-cta">Preview Version 3</span>
+      </a>
+
+      <a href="v4-dc-monument.html" class="card card-v4">
+        <div class="preview preview-v4">
+          <div class="tiers-mini">
+            <div class="tm tm-1"><span class="tm-name">CHAR'S</span></div>
+            <div class="tm tm-2"></div>
+            <div class="tm tm-3"></div>
+          </div>
+        </div>
+        <span class="card-label">Version 4</span>
+        <h2>DC Monument</h2>
+        <div class="tags">
+          <span class="tag">Bronze &amp; earth</span>
+          <span class="tag">Architectural</span>
+          <span class="tag">NMAAHC-inspired</span>
+          <span class="tag">Kente accents</span>
+        </div>
+        <p class="desc">Monumental and dignified — inspired by the NMAAHC's bronze lattice facade and the deep roots of African American Washington. Cormorant Garamond type, tiered architecture, and West African geometric motifs throughout.</p>
+        <span class="card-cta">Preview Version 4</span>
       </a>
     </div>
 

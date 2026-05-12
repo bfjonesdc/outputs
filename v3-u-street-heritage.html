@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Char's Cookie Jar — U Street Heritage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --midnight: #0e0b1c;
+    --midnight-2: #1a1530;
+    --gold: #c8a44a;
+    --gold-light: #e6cf8a;
+    --gold-pale: #f5e9cc;
+    --burgundy: #7a1e39;
+    --burgundy-deep: #4e1226;
+    --cream: #fdf3e1;
+    --warm-white: #fffdf6;
+    --smoke: #2c2448;
+    --body-text: #3a3055;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--cream);
+    color: var(--midnight);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.05; }
+  a { color: inherit; text-decoration: none; }
+
+  /* TICKER */
+  .ticker {
+    background: var(--midnight); overflow: hidden; white-space: nowrap;
+    padding: 10px 0; border-bottom: 1px solid rgba(200,164,74,0.25);
+  }
+  .ticker-track {
+    display: inline-block;
+    animation: tickerScroll 28s linear infinite;
+    font-family: 'DM Sans', sans-serif; font-size: 11px;
+    font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .ticker-track span { margin: 0 24px; }
+  .ticker-track span::before { content: "◆ "; font-size: 7px; }
+  @keyframes tickerScroll { to { transform: translateX(-50%); } }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(14,11,28,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,164,74,0.2);
+  }
+  .nav-inner {
+    max-width: 1240px; margin: 0 auto; padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif; font-weight: 900; font-size: 19px;
+    letter-spacing: 0.04em; color: var(--gold);
+  }
+  .logo em { color: rgba(253,243,225,0.8); font-style: italic; font-weight: 400; }
+  .nav-links { display: flex; gap: 30px; }
+  .nav-links a {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(253,243,225,0.6); transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .btn {
+    display: inline-block; padding: 10px 22px;
+    font-family: 'DM Sans', sans-serif; font-weight: 700;
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .btn-gold { background: var(--gold); color: var(--midnight); }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-outline { background: transparent; color: var(--gold); border: 1px solid rgba(200,164,74,0.6); }
+  .btn-outline:hover { border-color: var(--gold); background: rgba(200,164,74,0.08); }
+  .btn-burg { background: var(--burgundy); color: var(--cream); }
+  .btn-burg:hover { background: var(--burgundy-deep); }
+
+  /* HERO */
+  .hero {
+    background: var(--midnight);
+    padding: 90px 32px 80px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(45deg, rgba(200,164,74,0.03) 25%, transparent 25%),
+      linear-gradient(-45deg, rgba(200,164,74,0.03) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgba(200,164,74,0.03) 75%),
+      linear-gradient(-45deg, transparent 75%, rgba(200,164,74,0.03) 75%);
+    background-size: 48px 48px;
+    background-position: 0 0, 0 24px, 24px -24px, -24px 0;
+  }
+  .hero-inner {
+    max-width: 1240px; margin: 0 auto; position: relative;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+
+  /* THEATER BILLING */
+  .billing {
+    text-align: center; position: relative;
+    border: 1px solid rgba(200,164,74,0.35); padding: 52px 44px;
+  }
+  .billing::before {
+    content: ""; position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid rgba(200,164,74,0.15);
+    pointer-events: none;
+  }
+  .corner { position: absolute; width: 18px; height: 18px; }
+  .corner-tl { top: -1px; left: -1px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+  .corner-tr { top: -1px; right: -1px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+  .corner-bl { bottom: -1px; left: -1px; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+  .corner-br { bottom: -1px; right: -1px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+  .billing-city {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 18px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .billing-city::before, .billing-city::after { content: "◆"; font-size: 7px; }
+  .billing-name {
+    font-family: 'Playfair Display', serif; font-weight: 900;
+    font-size: clamp(56px, 9vw, 118px); line-height: 0.82;
+    color: var(--gold); letter-spacing: -0.01em; margin-bottom: 10px;
+  }
+  .billing-divider {
+    display: flex; align-items: center; gap: 12px; justify-content: center;
+    margin: 16px 0;
+  }
+  .billing-divider::before, .billing-divider::after {
+    content: ""; flex: 1; height: 1px; background: rgba(200,164,74,0.4);
+  }
+  .billing-divider span {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: clamp(22px, 3.5vw, 36px); color: var(--cream); line-height: 1;
+  }
+  .billing-sub {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(200,164,74,0.55); margin-top: 18px;
+  }
+
+  /* HERO COPY */
+  .hero-copy { color: var(--cream); }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 22px;
+  }
+  .eyebrow::before, .eyebrow::after { content: "✦"; font-size: 9px; }
+  .hero-copy h1 {
+    font-size: clamp(38px, 5vw, 66px); font-weight: 800;
+    line-height: 1.08; margin-bottom: 18px;
+  }
+  .hero-copy h1 em { font-style: italic; color: var(--gold); }
+  .hero-copy .lede {
+    font-size: 17px; line-height: 1.75; color: rgba(253,243,225,0.75);
+    max-width: 420px; margin-bottom: 30px;
+  }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-stats {
+    display: flex; gap: 36px; margin-top: 44px; padding-top: 28px;
+    border-top: 1px solid rgba(200,164,74,0.18);
+  }
+  .hero-stats div { font-size: 12px; color: rgba(253,243,225,0.5); }
+  .hero-stats strong {
+    display: block; font-family: 'Playfair Display', serif;
+    font-size: 30px; font-weight: 700; color: var(--gold); line-height: 1.1;
+  }
+
+  /* SECTIONS */
+  section { padding: 80px 32px; }
+  .container { max-width: 1240px; margin: 0 auto; }
+  .section-head { text-align: center; margin-bottom: 52px; }
+  .section-head .kicker {
+    display: block; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+  }
+  .section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 5vw, 60px); font-weight: 800; color: var(--midnight);
+  }
+  .section-head p { font-size: 17px; color: var(--body-text); max-width: 520px; margin: 14px auto 0; }
+
+  /* FEATURED */
+  .featured-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: rgba(14,11,28,0.1);
+  }
+  .feature-card {
+    background: var(--warm-white); padding: 36px 28px; position: relative;
+    transition: background 0.25s;
+  }
+  .feature-card:hover { background: var(--gold-pale); }
+  .feature-num {
+    position: absolute; top: 14px; right: 20px;
+    font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 900;
+    color: rgba(200,164,74,0.1); line-height: 1; pointer-events: none;
+  }
+  .feature-img {
+    width: 72px; height: 72px; border-radius: 50%; margin-bottom: 18px;
+    background: radial-gradient(circle at 35% 35%, #d9a25e, #6e4a22);
+  }
+  .feature-img.oreo { background: radial-gradient(circle at 35% 35%, #6b4423, #2a1810); }
+  .feature-img.pb   { background: radial-gradient(circle at 35% 35%, #e8a85c, #8a5a28); }
+  .feature-pill {
+    display: inline-block; background: var(--burgundy); color: var(--gold-pale);
+    padding: 3px 10px; font-size: 9px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .feature-card h3 {
+    font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
+    color: var(--midnight); margin-bottom: 8px;
+  }
+  .feature-card p { font-size: 14px; color: var(--body-text); line-height: 1.65; margin-bottom: 14px; }
+  .feature-price {
+    font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--burgundy);
+  }
+
+  /* HERITAGE BAND */
+  .heritage-band {
+    background: var(--midnight-2); color: var(--cream);
+    padding: 80px 32px; position: relative; overflow: hidden;
+  }
+  .heritage-band::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(200,164,74,0.05) 0 1px, transparent 1px 80px),
+      repeating-linear-gradient(0deg,   rgba(200,164,74,0.05) 0 1px, transparent 1px 80px);
+  }
+  .heritage-inner {
+    max-width: 1240px; margin: 0 auto; position: relative;
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: 80px; align-items: center;
+  }
+  .heritage-inner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 62px); font-weight: 800; line-height: 1.08; margin-bottom: 20px;
+  }
+  .heritage-inner h2 em { font-style: italic; color: var(--gold); }
+  .heritage-inner p { font-size: 16px; line-height: 1.8; color: rgba(253,243,225,0.78); margin-bottom: 14px; }
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .pillar {
+    padding: 22px 20px 22px 24px; position: relative;
+    border: 1px solid rgba(200,164,74,0.18);
+  }
+  .pillar::before {
+    content: ""; position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%; background: var(--gold);
+  }
+  .pillar h4 {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 7px;
+  }
+  .pillar p { font-size: 13px; color: rgba(253,243,225,0.7); line-height: 1.6; }
+
+  /* SHOP */
+  .shop-section { background: var(--warm-white); }
+  .shop-filters {
+    display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px;
+  }
+  .filter-chip {
+    background: transparent; color: var(--midnight);
+    border: 1px solid rgba(14,11,28,0.22);
+    padding: 8px 20px; font-family: 'DM Sans', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-chip:hover, .filter-chip.active {
+    background: var(--midnight); color: var(--gold); border-color: var(--midnight);
+  }
+  .product-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: rgba(14,11,28,0.1);
+  }
+  .product-card {
+    background: white; padding: 20px; cursor: pointer; position: relative;
+    transition: background 0.2s;
+  }
+  .product-card:hover { background: var(--gold-pale); }
+  .product-img {
+    width: 100%; aspect-ratio: 1; margin-bottom: 14px;
+    background: radial-gradient(circle at 35% 35%, #d9a25e, #6e4a22);
+  }
+  .product-img.choc   { background: radial-gradient(circle at 35% 35%, #c08a4d, #5a3a18); }
+  .product-img.vegan  { background: radial-gradient(circle at 35% 35%, #c8a373, #6e4a22); outline: 2px solid #7a9159; }
+  .product-img.season { background: radial-gradient(circle at 35% 35%, #e8a85c, #a85a28); }
+  .product-img.special{ background: radial-gradient(circle at 35% 35%, var(--gold), var(--burgundy-deep)); }
+  .product-card h4 {
+    font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;
+    color: var(--midnight); margin-bottom: 5px; line-height: 1.3;
+  }
+  .product-price { font-size: 13px; font-weight: 600; color: var(--burgundy); }
+  .prod-label {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--midnight); color: var(--gold);
+    font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 3px 8px;
+  }
+  .prod-label.vl { background: #4a6640; color: white; }
+  .prod-label.bl { background: var(--burgundy); color: var(--gold-pale); }
+
+  /* MEET CHAR */
+  .meet-section { background: var(--cream); }
+  .meet { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center; }
+  .portrait {
+    aspect-ratio: 4/5; position: relative;
+    background: linear-gradient(160deg, #3a2a1a 0%, #1a0e06 100%);
+  }
+  .portrait::before {
+    content: ""; position: absolute; inset: 16px;
+    border: 1px solid rgba(200,164,74,0.45); pointer-events: none;
+  }
+  .portrait-tag {
+    position: absolute; bottom: -18px; left: -18px;
+    background: var(--midnight); color: var(--gold);
+    border: 1px solid var(--gold); padding: 14px 22px;
+    font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px;
+  }
+  .meet-copy .kicker {
+    display: block; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+  }
+  .meet-copy h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4.5vw, 60px); font-weight: 800; color: var(--midnight); margin-bottom: 8px;
+  }
+  .meet-copy h2 em { color: var(--burgundy); font-style: italic; }
+  .meet-copy p { font-size: 16px; line-height: 1.8; color: var(--body-text); margin-bottom: 14px; }
+  .quote-pull {
+    padding: 22px 0 22px 26px; border-left: 3px solid var(--gold); margin: 22px 0;
+  }
+  .quote-pull blockquote {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 19px; color: var(--midnight); line-height: 1.5; margin-bottom: 8px;
+  }
+  .quote-pull cite { font-size: 12px; color: #7a6a90; font-style: normal; letter-spacing: 0.05em; }
+
+  /* FAQ */
+  .faq-section { background: var(--midnight); }
+  .faq-section .section-head h2 { color: var(--gold); }
+  .faq-section .section-head .kicker { color: rgba(200,164,74,0.65); }
+  .faq-section .section-head p { color: rgba(253,243,225,0.65); }
+  .faq-grid { max-width: 740px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid rgba(200,164,74,0.18); }
+  .faq-q {
+    padding: 20px 0; cursor: pointer;
+    font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700;
+    color: var(--cream); display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .faq-q::after { content: "+"; font-size: 22px; color: var(--gold); transition: transform 0.2s; flex-shrink: 0; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s;
+    color: rgba(253,243,225,0.7); font-size: 15px; line-height: 1.75;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding-bottom: 20px; }
+
+  /* CONTACT */
+  .contact-section { background: var(--burgundy); color: var(--cream); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .contact-grid .kicker {
+    display: block; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 12px;
+  }
+  .contact-grid h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px); font-weight: 800; line-height: 1.08; margin-bottom: 14px;
+  }
+  .contact-grid .lede { font-size: 16px; opacity: 0.88; margin-bottom: 26px; }
+  .contact-info { display: flex; flex-direction: column; gap: 13px; }
+  .contact-info-item { display: flex; align-items: center; gap: 12px; font-size: 15px; }
+  .c-icon {
+    width: 38px; height: 38px; border: 1px solid rgba(200,164,74,0.45);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; color: var(--gold); flex-shrink: 0;
+  }
+  .contact-form {
+    background: var(--midnight); padding: 30px;
+    border: 1px solid rgba(200,164,74,0.2);
+  }
+  .contact-form h3 {
+    font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700;
+    color: var(--gold); margin-bottom: 18px;
+  }
+  .form-group { margin-bottom: 14px; }
+  .form-group label {
+    display: block; font-size: 9px; font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+  }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: 11px 13px;
+    background: rgba(200,164,74,0.06); border: 1px solid rgba(200,164,74,0.25);
+    font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--cream);
+  }
+  .form-group textarea { min-height: 96px; resize: vertical; }
+
+  /* FOOTER */
+  footer {
+    background: var(--midnight); color: var(--cream);
+    padding: 60px 32px 30px; border-top: 1px solid rgba(200,164,74,0.15);
+  }
+  .footer-inner {
+    max-width: 1240px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 52px;
+  }
+  .footer-brand .logo { font-size: 22px; display: block; margin-bottom: 12px; }
+  .footer-brand p { font-size: 13px; color: rgba(253,243,225,0.55); max-width: 270px; line-height: 1.7; }
+  footer h4 {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 14px;
+  }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 9px; font-size: 13px; color: rgba(253,243,225,0.65); }
+  footer ul li a:hover { color: var(--gold); }
+  .footer-bottom {
+    border-top: 1px solid rgba(200,164,74,0.1); margin-top: 44px; padding-top: 22px;
+    font-size: 11px; color: rgba(253,243,225,0.35); text-align: center; letter-spacing: 0.08em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-inner, .heritage-inner, .meet, .contact-grid, .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+    .featured-grid { grid-template-columns: 1fr 1fr; }
+    .product-grid { grid-template-columns: 1fr 1fr; }
+    .pillars { grid-template-columns: 1fr 1fr; }
+    .billing { padding: 36px 28px; }
+    .billing-name { font-size: clamp(48px, 14vw, 80px); }
+    .nav-links { display: none; }
+    section { padding: 56px 20px; }
+    .hero { padding: 60px 20px; }
+  }
+  @media (max-width: 520px) {
+    .product-grid, .featured-grid { grid-template-columns: 1fr 1fr; gap: 1px; }
+    .pillars { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <div style="background:var(--burgundy);color:var(--gold-pale);padding:10px;text-align:center;font-size:12px;font-weight:600;letter-spacing:0.06em;">
+    Design Preview — Version 3: U Street Heritage &nbsp;·&nbsp; Char's Cookie Jar redesign &nbsp;·&nbsp; by Aurathmic
+  </div>
+
+  <div class="ticker">
+    <div class="ticker-track">
+      <span>Washington D.C.</span><span>Black Broadway</span><span>Baked with Love</span><span>U Street Proud</span><span>Since 2017</span><span>Not Your Average Cookie</span><span>Washington D.C.</span><span>Black Broadway</span><span>Baked with Love</span><span>U Street Proud</span><span>Since 2017</span><span>Not Your Average Cookie</span>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#home" class="logo">Char's <em>Cookie Jar</em></a>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#meet">Meet Char</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="#shop" class="btn btn-gold">Order Now</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="billing">
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+        <div class="billing-city">Washington, D.C.</div>
+        <div class="billing-name">CHAR'S</div>
+        <div class="billing-divider"><span>Cookie Jar</span></div>
+        <div class="billing-city" style="margin-bottom:0;margin-top:4px;">Not Your Average Cookie</div>
+        <div class="billing-sub" style="margin-top:20px;">★ &nbsp; Est. 2017 &nbsp; · &nbsp; U Street, D.C. &nbsp; ★</div>
+      </div>
+
+      <div class="hero-copy">
+        <div class="eyebrow">U Street Proud</div>
+        <h1>Love at <em>first bite.</em></h1>
+        <p class="lede">Small-batch gourmet cookies, baked with the spirit of Washington, D.C. — wholesome ingredients, bold flavors, and a whole lot of heart. Shipped to your door, with love.</p>
+        <div class="hero-ctas">
+          <a href="#shop" class="btn btn-gold">Shop the Jar →</a>
+          <a href="#meet" class="btn btn-outline">Meet Char</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>30+</strong>Cookie flavors</div>
+          <div><strong>48hr</strong>Fresh-bake turnaround</div>
+          <div><strong>2017</strong>Baking since</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">The Signatures</span>
+        <h2>Crowd Favorites.</h2>
+        <p>Bestsellers that started a cult following — and a few flavors only Char would dare to combine.</p>
+      </div>
+      <div class="featured-grid">
+        <div class="feature-card">
+          <div class="feature-num">01</div>
+          <div class="feature-img"></div>
+          <span class="feature-pill">Bestseller</span>
+          <h3>The Monster</h3>
+          <p>Loaded with everything good. Our signature stacked cookie that lives up to its name.</p>
+          <div class="feature-price">from $32</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">02</div>
+          <div class="feature-img oreo"></div>
+          <span class="feature-pill">Iconic</span>
+          <h3>Chocolate Chip &amp; Oreo</h3>
+          <p>The combo that put Char's on the map. Crispy edges, gooey center, Oreo chunks throughout.</p>
+          <div class="feature-price">from $30</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">03</div>
+          <div class="feature-img pb"></div>
+          <span class="feature-pill">Fan Favorite</span>
+          <h3>Real Reese's PB Cup</h3>
+          <p>Yes, REAL Reese's cups baked right in. The cookie that explains itself.</p>
+          <div class="feature-price">from $30</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="heritage-band">
+    <div class="heritage-inner">
+      <div>
+        <div class="eyebrow" style="margin-bottom:20px;">Our Promise</div>
+        <h2>Ingredients <em>matter.</em></h2>
+        <p>Every batch starts with the same commitment — real ingredients, real care, real taste. Nothing artificial, nothing rushed. Baked to order. Packed with intention. Shipped from Washington, D.C.</p>
+        <a href="#shop" class="btn btn-gold" style="margin-top:24px;">Shop Now →</a>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <h4>Small Batch</h4>
+          <p>Hand-mixed, hand-scooped, hand-packed. No factory shortcuts, ever.</p>
+        </div>
+        <div class="pillar">
+          <h4>Real Ingredients</h4>
+          <p>Real butter, real chocolate. Names you can recognize on every label.</p>
+        </div>
+        <div class="pillar">
+          <h4>Baked to Order</h4>
+          <p>48–72 hour turnaround. Your cookies are never more than two days old.</p>
+        </div>
+        <div class="pillar">
+          <h4>Vegan Options</h4>
+          <p>Three plant-based flavors and growing. Same crave-worthy taste.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="shop-section" id="shop">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">The Collection</span>
+        <h2>Shop the Jar.</h2>
+        <p>Thirty flavors and counting. Pick your obsession.</p>
+      </div>
+      <div class="shop-filters">
+        <button class="filter-chip active" data-cat="all">All</button>
+        <button class="filter-chip" data-cat="classic">Classics</button>
+        <button class="filter-chip" data-cat="signature">Signature</button>
+        <button class="filter-chip" data-cat="vegan">Vegan</button>
+        <button class="filter-chip" data-cat="seasonal">Seasonal</button>
+        <button class="filter-chip" data-cat="specialty">Specialty</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </div>
+  </section>
+
+  <section class="meet-section" id="meet">
+    <div class="container">
+      <div class="meet">
+        <div style="position:relative;">
+          <div class="portrait"></div>
+          <div class="portrait-tag">★ Est. 2017, Washington D.C.</div>
+        </div>
+        <div class="meet-copy">
+          <span class="kicker">The Baker</span>
+          <h2>Meet <em>Char.</em></h2>
+          <p>A Long Beach native turned D.C. resident, Char is the bakerista behind the jar. She's as daring in the kitchen as she is in life — pairing chocolate chips with Oreos before it was cool, and slipping real Reese's cups into cookies because, well, why not?</p>
+          <p>Char's cookies are baked, packed, and shipped with love. Carefully crafted recipes, wholesome ingredients, homemade taste. The perfect gift for co-workers, friends, family — or a delicious treat to keep all to yourself.</p>
+          <div class="quote-pull">
+            <blockquote>"Be sure to savor every bite."</blockquote>
+            <cite>— Oprah Winfrey</cite>
+          </div>
+          <a href="#shop" class="btn btn-burg">See What She's Baking →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Good to Know</span>
+        <h2>Frequently Asked.</h2>
+        <p>Everything you want to know before placing your order.</p>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-q">How long do orders take to fulfill?</div>
+          <div class="faq-a">All orders take 48 to 72 hours to be baked and packed. We bake fresh — nothing sits on a shelf.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you ship nationwide?</div>
+          <div class="faq-a">Yes. We ship across the U.S. Local D.C.-area pickup is also available — just choose pickup at checkout.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you have vegan options?</div>
+          <div class="faq-a">We do. Currently three vegan flavors: Chocolate Chip, Chocolate Chip and Oreo, and Chocolate Chip with Nuts. Same crave-worthy taste, plant-based.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I order custom or special-occasion cookies?</div>
+          <div class="faq-a">Absolutely. Reach out via the contact form or email charcookiejar@gmail.com to discuss your event, wedding, or corporate order.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What are common allergens?</div>
+          <div class="faq-a">Our kitchen handles wheat, dairy, eggs, nuts, peanuts, and soy. We can't guarantee an allergen-free environment, so please order with care.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div>
+          <span class="kicker">Get in Touch</span>
+          <h2>Let's Talk Cookies.</h2>
+          <p class="lede">Special orders, pop-up bookings, press, or just want to say hi — we'd love to hear from you.</p>
+          <div class="contact-info">
+            <div class="contact-info-item"><span class="c-icon">☎</span>(202) 744-5439</div>
+            <div class="contact-info-item"><span class="c-icon">✉</span>charcookiejar@gmail.com</div>
+            <div class="contact-info-item"><span class="c-icon">⌂</span>Washington, D.C.</div>
+            <div class="contact-info-item"><span class="c-icon">f</span>Facebook</div>
+          </div>
+        </div>
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('Form is a preview — Squarespace will handle real submissions.');">
+          <h3>Send a Message.</h3>
+          <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" /></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com" /></div>
+          <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your order, event, or question..."></textarea></div>
+          <button type="submit" class="btn btn-gold" style="width:100%;">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#home" class="logo">Char's <em>Cookie Jar</em></a>
+        <p>Not your average cookie. Baked, packed, and shipped with love from Washington, D.C.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#shop">All Cookies</a></li>
+          <li><a href="#shop">Vegan</a></li>
+          <li><a href="#shop">Gift Baskets</a></li>
+          <li><a href="#shop">Special Orders</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>About</h4>
+        <ul>
+          <li><a href="#meet">Meet Char</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the Jar</h4>
+        <ul><li style="opacity:0.65;">Pop-up alerts &amp; new flavors</li></ul>
+        <input type="email" placeholder="Your email" style="width:100%;padding:10px 13px;background:rgba(200,164,74,0.07);border:1px solid rgba(200,164,74,0.25);color:var(--cream);margin-top:8px;font-family:inherit;font-size:13px;" />
+        <button class="btn btn-gold" style="margin-top:8px;width:100%;">Subscribe</button>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Char's Cookie Jar &nbsp;·&nbsp; Washington, D.C. &nbsp;·&nbsp; Made with ♥</div>
+  </footer>
+
+<script>
+  const products = [
+    { name: "Chocolate Chip", price: "from $25", cat: "classic", cls: "choc" },
+    { name: "Salted Caramel Chocolate Chip", price: "from $25", cat: "classic", cls: "choc" },
+    { name: "Chocolate Chip and Oreo", price: "from $30", cat: "classic", cls: "choc", tag: "Iconic", tagCls: "bl" },
+    { name: "Oatmeal Raisin", price: "from $30", cat: "classic" },
+    { name: "M&M", price: "$27", cat: "classic" },
+    { name: "Snickerdoodle", price: "from $25", cat: "classic" },
+    { name: "White Chocolate Macadamia Nut", price: "from $30", cat: "classic" },
+    { name: "Charlee", price: "from $27", cat: "classic" },
+    { name: "Chocolate Chip w/ Nuts", price: "from $25", cat: "classic" },
+    { name: "The Monster", price: "from $32", cat: "signature", cls: "special", tag: "Bestseller", tagCls: "bl" },
+    { name: "Goddess", price: "from $32", cat: "signature", cls: "special" },
+    { name: "Real Reese's Peanut Butter Cup", price: "from $30", cat: "signature", cls: "special" },
+    { name: "S'mores", price: "from $30", cat: "signature" },
+    { name: "The Real Turtle", price: "from $30", cat: "signature" },
+    { name: "Brown Butter Choc Chip w/ Toffee", price: "from $30", cat: "signature" },
+    { name: "Butter My Scotch", price: "from $30", cat: "signature" },
+    { name: "Nirvana", price: "$30", cat: "signature" },
+    { name: "Twisted!", price: "$30", cat: "signature" },
+    { name: "Supernova", price: "$30", cat: "signature" },
+    { name: "Velvet", price: "from $27", cat: "signature" },
+    { name: "(VEGAN) Chocolate Chip", price: "from $25", cat: "vegan", cls: "vegan", tag: "Vegan", tagCls: "vl" },
+    { name: "(VEGAN) Chocolate Chip and Oreo", price: "from $25", cat: "vegan", cls: "vegan", tag: "Vegan", tagCls: "vl" },
+    { name: "(VEGAN) Chocolate Chip w/ Nuts", price: "from $25", cat: "vegan", cls: "vegan", tag: "Vegan", tagCls: "vl" },
+    { name: "White Christmas", price: "from $30", cat: "seasonal", cls: "season", tag: "Seasonal" },
+    { name: "P.S. I Love You (Pumpkin Spice)", price: "from $30", cat: "seasonal", cls: "season", tag: "Seasonal" },
+    { name: "Slap Your Nana Puddin'", price: "$60", cat: "specialty", cls: "special", tag: "Specialty", tagCls: "bl" },
+    { name: "Peach Cobbler Pound Cake", price: "$45", cat: "specialty", cls: "special" },
+    { name: "Cookie Gift Baskets", price: "$50", cat: "specialty", cls: "special", tag: "Gift" },
+    { name: "Merry Mystery Cookie Box", price: "$25.12", cat: "specialty", cls: "special", tag: "Mystery" },
+    { name: "Frozen Cookie Dough", price: "$20", cat: "specialty" }
+  ];
+
+  function renderProducts(cat) {
+    const grid = document.getElementById('productGrid');
+    const list = cat === 'all' ? products : products.filter(p => p.cat === cat);
+    grid.innerHTML = list.map(p => {
+      const imgClass = p.cls ? `product-img ${p.cls}` : 'product-img';
+      const tagHtml = p.tag ? `<div class="prod-label ${p.tagCls||''}">${p.tag}</div>` : '';
+      return `<div class="product-card">${tagHtml}<div class="${imgClass}"></div><h4>${p.name}</h4><div class="product-price">${p.price}</div></div>`;
+    }).join('');
+  }
+
+  renderProducts('all');
+
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      renderProducts(chip.dataset.cat);
+    });
+  });
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => item.classList.toggle('open'));
+  });
+</script>
+</body>
+</html>
